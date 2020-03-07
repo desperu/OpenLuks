@@ -5,4 +5,27 @@
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+
+    <!-- LAYOUTS -->
+    <!-- Main Activity -->
+    <dimen name="nav_view_padding_top">24dp</dimen>
+    <dimen name="nav_view_image_view_height">120dp</dimen>
+    <dimen name="nav_view_image_view_margin_start">30dp</dimen>
+
+    <!--FRAGMENT LUKS -->
+    <dimen name="fragment_luks_text_tilte_margin_top">50dp</dimen>
+    <dimen name="fragment_luks_text_description_horizontal_padding">50dp</dimen>
+
+    <!-- MENU -->
+
+    <!-- Menu Drawer -->
+    <dimen name="nav_header_height">220dp</dimen>
+    <dimen name="nav_header_margin_bottom">30dp</dimen>
+    <dimen name="nav_header_text_title_size">40sp</dimen>
+    <dimen name="nav_header_linear_profile_padding">15dp</dimen>
+    <dimen name="nav_header_linear_name_email_margin_start">10dp</dimen>
+    <dimen name="nav_header_text_name_text_size">16sp</dimen>
+    <dimen name="nav_header_text_name_text_margin_start">5dp</dimen>
+    <dimen name="nav_header_text_email_text_size">14sp</dimen>
+    <dimen name="nav_drawer_text_item_text_size_theme">16sp</dimen>
 </resources>
