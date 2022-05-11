@@ -1,5 +1,7 @@
 package org.desperu.openluks.ui.main;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
@@ -15,6 +18,7 @@ import org.desperu.openluks.R;
 import org.desperu.openluks.ui.Base.BaseFragment;
 import org.desperu.openluks.utils.BashCommand;
 import org.desperu.openluks.utils.EncryptedFile;
+import org.desperu.openluks.utils.ManageVolume;
 import org.desperu.openluks.utils.StorageUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -26,12 +30,18 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainFragment extends BaseFragment {
 
     // FOR DATA
     private static final String PASSWORD = "password";
+    private boolean isMountPermissionEnabled = true;
+    // TODO in constant
+    private static final String[] PERMS = {Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS}; // TODO don't ask...
+    private static final int PERM_MOUNT_FILESYSTEMS = 100;
 
+    // FOR DESIGN
     @Nullable @BindView(R.id.alert_dialog_linear_root) LinearLayout linearRoot;
 
     // --------------
@@ -55,6 +65,33 @@ public class MainFragment extends BaseFragment {
     public static MainFragment newInstance(int position) { return new MainFragment(); }
 
     // --------------
+    // CONFIGURATION
+    // --------------
+
+    /**
+     * Check if mount unmount system permission is granted, if not, ask for it.
+     */
+    private void checkMountSystemPermissionsStatus() {
+        assert getContext() != null;
+        if (!EasyPermissions.hasPermissions(getContext(), PERMS))
+            EasyPermissions.requestPermissions(this, getString(R.string.title_permission),
+                    PERM_MOUNT_FILESYSTEMS, PERMS);
+        else isMountPermissionEnabled = true;
+    }
+
+    // --------------
+    // METHODS OVERRIDE
+    // --------------
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+        this.isMountPermissionEnabled = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+    }
+
+    // --------------
     // ACTION
     // --------------
 
@@ -73,9 +110,8 @@ public class MainFragment extends BaseFragment {
         this.alertDialog(cmd);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @OnClick(R.id.fragment_main_button_umount)
-    void OnclickUmount() {
+    @OnClick(R.id.fragment_main_button_unmount)
+    void OnclickUnMount() {
         List<String> cmd = new ArrayList<>();
         cmd.add("id");
         new Handler().post(() -> BashCommand.executeBashCommand(cmd));
@@ -108,6 +144,9 @@ public class MainFragment extends BaseFragment {
                 cmd.set(cmd.indexOf("pwd"), EncryptedFile.getDecodedFile(getEncodedPwdFile(), PASSWORD));
             else cmd.set(cmd.indexOf("pwd"), String.valueOf(editText.getText()));
             BashCommand.executeBashCommand(cmd);
+            if (isMountPermissionEnabled)
+                ManageVolume.mountVolume(getContext(), "/dev/mapper/myluks");// TODO on test
+            else checkMountSystemPermissionsStatus();
         });
 
         // Set neutral button // TODO perform if a kay exist, save key to keystore, save file to external storage, random password

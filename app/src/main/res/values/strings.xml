@@ -29,9 +29,9 @@
     <!-- MAIN ACTIVITY -->
     <!-- FRAGMENT LUKS -->
     <string name="fragment_main_text_title">OpenLuks</string>
-    <string name="fragment_main_text_description">Manage luks volume to access, mount and umount luks partition.</string>
+    <string name="fragment_main_text_description">Manage luks volume to access, mount and unmount luks partition.</string>
     <string name="fragment_main_button_mount_text">MOUNT</string>
-    <string name="fragment_main_button_umount_text">UMOUNT</string>
+    <string name="fragment_main_button_unmount_text">UNMOUNT</string>
     <string name="fragment_main_input_text_hint">/sdcard/</string>
     <string name="fragment_main_button_set_folder_text">Set Folder</string>
 

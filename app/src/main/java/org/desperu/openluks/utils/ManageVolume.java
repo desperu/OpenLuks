@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
-public class MountVolume {
+public class ManageVolume {
 
     public void ObbExpansionsManager(@NotNull Context context, final OnObbStateChangeListener listener) {
         Log.d("MountVolume", "Creating new instance...");
@@ -40,5 +40,18 @@ public class MountVolume {
             Log.d("MountVolume", "No expansion files found!");
 //            listener.onFilesNotFound();
         }
+    }
+
+    public static void mountVolume(@NotNull Context context, String volId) {
+//        android.os.storage.IMountService
+//        IStorageManager iStorageManager = (IStorageManager) context.getSystemService(Context.STORAGE_SERVICE);
+//        try {
+//            iStorageManager.mount("/dev/mapper/myluks"); // need id partition UUID
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
+
+        StorageManager sm = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
+        sm.mount(volId);
     }
 }

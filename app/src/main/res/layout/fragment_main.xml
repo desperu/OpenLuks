@@ -79,14 +79,14 @@
             android:background="@color/colorPrimary"/>
 
         <Button
-            android:id="@+id/fragment_main_button_umount"
+            android:id="@+id/fragment_main_button_unmount"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_main_button_mount"
-            android:text="@string/fragment_main_button_umount_text"
+            android:text="@string/fragment_main_button_unmount_text"
             android:textStyle="bold"
             android:background="@color/colorAccent"/>
 
@@ -98,7 +98,7 @@
             android:padding="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_main_button_umount"
+            app:layout_constraintTop_toBottomOf="@id/fragment_main_button_unmount"
             app:layout_constraintBottom_toTopOf="@id/fragment_main_button_set_folder"
             android:hint="@string/fragment_main_input_text_hint"
             android:textStyle="bold"

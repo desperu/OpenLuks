@@ -2,6 +2,7 @@ package org.desperu.openluks.view;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,6 +25,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() { return 2; }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) { return MainFragment.newInstance(position); }
 
